@@ -61,7 +61,7 @@ init_dict = dict(true_labels=whitened_label_means,
 
 
 
-kwds = dict(data=data_dict, init=init_dict)
+kwds = dict(data=data_dict, init=init_dict, iter=1000000)
 
 
 foo = model.optimizing(**kwds)
