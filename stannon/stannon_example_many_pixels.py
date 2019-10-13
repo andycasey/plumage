@@ -38,7 +38,8 @@ L = len(label_names)
 
 # Generate a pixel mask for fun.
 pixel_mask = np.zeros(P, dtype=bool)
-pixel_mask[250:350] = True
+#pixel_mask[250:350] = True
+pixel_mask[:] = True
 
 training_set_flux = training_set_flux[:, pixel_mask]
 training_set_ivar = training_set_ivar[:, pixel_mask]
@@ -61,12 +62,11 @@ init_dict = dict(true_labels=whitened_label_means,
 
 
 
-kwds = dict(data=data_dict, init=init_dict, iter=1000000)
+kwds = dict(data=data_dict, init=init_dict, iter=10000000, verbose=True)
 
+p_opt = model.optimizing(**kwds)
 
-foo = model.optimizing(**kwds)
-
-
-
-
-raise a
+basename = __file__[:-3]
+output_path = f"{basename}_{time():.0f}.pkl"
+with open(output_path, "wb") as fp:
+    pickle.dump(p_opt, fp)
